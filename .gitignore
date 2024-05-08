@@ -1,0 +1,11 @@
+__pycache__/*
+client/client_env
+client/streamlit_access.log
+
+server/server_env
+
+__pycache__
+
+*/__pycache__
+*/.env
+*/*.ipynb
