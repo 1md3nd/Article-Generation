@@ -182,15 +182,16 @@ cost_per_1000_tokens_total = 0.0020  # Cost per 1000 total tokens
 def display_token_feedback_with_cost(stt):
     token_feedback = get_tokens_usage()
     stt.subheader("Token Feedback:")
-    stt.write(f"LLM Invoke Count: {token_feedback['llm_invoke_count']}")
-    stt.write(f"Total Tokens Used: {token_feedback['total_tokens_used']}")
-    stt.write(f"Completion Tokens Used: {token_feedback['completion_tokens_used']}")
-    stt.write(f"Prompt Tokens Used: {token_feedback['prompt_tokens_used']}")
-    stt.subheader("Last LLM Token Feedback:")
-    df = pd.DataFrame(token_feedback['last_llm_token_feedback'].items(),columns=('tokens feedback','counts'))
-    stt.table(df)
-    stt.subheader("Average Tokens Used per Request Cost:")
-    stt.write(f"${calculate_average_cost(token_feedback, cost_per_1000_tokens_completion, cost_per_1000_tokens_total):.4f} per request")
+    if token_feedback:
+        stt.write(f"LLM Invoke Count: {token_feedback['llm_invoke_count']}")
+        stt.write(f"Total Tokens Used: {token_feedback['total_tokens_used']}")
+        stt.write(f"Completion Tokens Used: {token_feedback['completion_tokens_used']}")
+        stt.write(f"Prompt Tokens Used: {token_feedback['prompt_tokens_used']}")
+        stt.subheader("Last LLM Token Feedback:")
+        df = pd.DataFrame(token_feedback['last_llm_token_feedback'].items(),columns=('tokens feedback','counts'))
+        stt.table(df)
+        stt.subheader("Average Tokens Used per Request Cost:")
+        stt.write(f"${calculate_average_cost(token_feedback, cost_per_1000_tokens_completion, cost_per_1000_tokens_total):.4f} per request")
 
 def show_forms(authors):
     """Render forms."""
